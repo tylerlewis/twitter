@@ -11,7 +11,7 @@ import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
     
-    static let sharedInstance = TwitterClient(baseURL: NSURL(string: "https://api.twitter.com")! as URL!, consumerKey: "LjToZj7xpxv75p202ePQcs3E0", consumerSecret: "1SM5sn1hsCmri9UXSqtYsI6C6Dfe6Tul0iDoxoQcSOjeeI0DyI")!
+    static let sharedInstance = TwitterClient(baseURL: NSURL(string: "https://api.twitter.com")! as URL!, consumerKey: Config.twitterConsumerKey, consumerSecret: Config.twitterConsumerSecret)!
     
     var loginSuccessHandler: (() -> ())?
     var loginFailureHandler: ((Error) -> ())?
@@ -42,7 +42,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             
             self.getUserAccount(success: {
                 (user: User) -> () in
-                print(user)
                 self.loginSuccessHandler?()
             }, failure: {
                 (error: Error?) -> () in
@@ -88,5 +87,20 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("ERROR")
         })
+    }
+    
+    func sendTweet(text: String!, success: @escaping (Tweet) -> (), failure: (Error) -> ()) {
+        var parameters = [String: String]()
+        parameters["status"] = text
+        post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            
+            let createdTweet = response as! NSDictionary
+            let tweet = Tweet(tweet: createdTweet)
+            
+            success(tweet)
+            
+        }) { (task: URLSessionDataTask?, error: Error) in
+            print("ERROR SENDING TWEET")
+        }
     }
 }

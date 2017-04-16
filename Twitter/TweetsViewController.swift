@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ComposeTweetDelegate {
     
     @IBOutlet weak var tweetsTableView: UITableView!
     
@@ -75,15 +75,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             refreshControl.endRefreshing()
         })
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func composeTweet(composer: ComposeTweetViewController, didComposeTweet tweet: Tweet?) {
+        getTweets { 
+            
+        }
+        dismiss(animated: true) { 
+            
+        }
     }
-    */
+
+    // MARK: - Navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "tweetsToComposeTweet" {
+            let composeTweetViewController = segue.destination as! ComposeTweetViewController
+            composeTweetViewController.delegate = self
+        }
+    }
 
 }
