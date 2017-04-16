@@ -26,7 +26,7 @@ class Tweet: NSObject {
             timestamp = dateFormatter.date(from: timestampString)
         }
         
-        favoriteCount = (tweet["favourites_count"] as? Int) ?? 0
+        favoriteCount = (tweet["favorite_count"] as? Int) ?? 0
         retweetCount = (tweet["retweet_count"] as? Int) ?? 0
         user = User(user: tweet["user"] as! NSDictionary)
     }

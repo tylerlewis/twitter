@@ -90,6 +90,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         if segue.identifier == "tweetsToComposeTweet" {
             let composeTweetViewController = segue.destination as! ComposeTweetViewController
             composeTweetViewController.delegate = self
+        } else if segue.identifier == "tweetsToTweetDetail" {
+            let selectedTweetIndex = tweetsTableView.indexPathForSelectedRow!
+            let tweetDetailViewController = segue.destination as! TweetDetailViewController
+            tweetDetailViewController.tweet = tweets[selectedTweetIndex.row]
         }
     }
 
