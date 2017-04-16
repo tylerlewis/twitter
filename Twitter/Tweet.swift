@@ -10,6 +10,7 @@ import UIKit
 
 class Tweet: NSObject {
     
+    var tweetId: String?
     var text: String?
     var timestamp: Date?
     var favoriteCount: Int?
@@ -17,6 +18,7 @@ class Tweet: NSObject {
     var user: User?
     
     init(tweet: NSDictionary) {
+        tweetId = tweet["id_str"] as? String
         text = tweet["text"] as? String
         
         let timestampString = tweet["created_at"] as? String

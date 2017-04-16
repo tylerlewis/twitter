@@ -62,7 +62,7 @@ class TwitterClient: BDBOAuth1SessionManager {
         NotificationCenter.default.post(name: User.userDidLogoutNotification, object: nil)
     }
     
-    func getUserAccount(success: @escaping (User) -> (), failure: (Error) -> ()) {
+    func getUserAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
             let userResponse = response as! NSDictionary
@@ -73,10 +73,11 @@ class TwitterClient: BDBOAuth1SessionManager {
             
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("ERROR")
+            failure(error)
         })
     }
     
-    func getHomeTimeline(success: @escaping ([Tweet]) -> (), failure: (Error) -> ()) {
+    func getHomeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             
             let responseTweets = response as! [NSDictionary]
@@ -86,10 +87,11 @@ class TwitterClient: BDBOAuth1SessionManager {
             
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("ERROR")
+            failure(error)
         })
     }
     
-    func sendTweet(text: String!, success: @escaping (Tweet) -> (), failure: (Error) -> ()) {
+    func sendTweet(text: String!, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         var parameters = [String: String]()
         parameters["status"] = text
         post("1.1/statuses/update.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
@@ -101,6 +103,39 @@ class TwitterClient: BDBOAuth1SessionManager {
             
         }) { (task: URLSessionDataTask?, error: Error) in
             print("ERROR SENDING TWEET")
+            failure(error)
+        }
+    }
+    
+    func retweet(tweet: Tweet, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        post("1.1/statuses/retweet/\(tweet.tweetId!).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+            print("FAILED TO RETWEET")
+        }
+    }
+    
+    func favorite(tweet: Tweet, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        var parameters = [String: String]()
+        parameters["id"] = tweet.tweetId
+        post("1.1/favorites/create.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+            print("FAILED TO FAVORITE")
+        }
+    }
+    
+    func reply(tweet: Tweet, text: String!, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        var parameters = [String: String]()
+        parameters["status"] = text
+        parameters["in_reply_to_status_id"] = tweet.tweetId
+        post("statuses/update.json", parameters: parameters, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            success()
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+            print("FAILED TO REPLY")
         }
     }
 }

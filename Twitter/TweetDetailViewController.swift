@@ -47,6 +47,25 @@ class TweetDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onReplyTap(_ sender: Any) {
+        
+    }
+    
+    @IBAction func onRetweetTap(_ sender: Any) {
+        TwitterClient.sharedInstance.retweet(tweet: tweet, success: {
+            
+        }) { (error: Error) in
+            
+        }
+    }
+    
+    @IBAction func onFavoriteTap(_ sender: Any) {
+        TwitterClient.sharedInstance.favorite(tweet: tweet, success: {
+            
+        }) { (error: Error) in
+            
+        }
+    }
 
     /*
     // MARK: - Navigation
