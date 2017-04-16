@@ -21,6 +21,8 @@ class ComposeTweetViewController: UIViewController {
     @IBOutlet weak var tweetTextView: UITextView!
     
     weak var delegate: ComposeTweetDelegate?
+    
+    var replyingToTweet: Tweet?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,10 @@ class ComposeTweetViewController: UIViewController {
         usernameLabel.text = currentUser.username
         tweetTextView.text = ""
         
+        if let replyingToTweet = replyingToTweet {
+            tweetTextView.text = "@\((replyingToTweet.user?.username)!) "
+        }
+        
         tweetTextView.becomeFirstResponder()
     }
 
@@ -41,12 +47,20 @@ class ComposeTweetViewController: UIViewController {
     }
     
     @IBAction func onTweetTap(_ sender: Any) {
-        TwitterClient.sharedInstance.sendTweet(text: tweetTextView.text, success: { (tweet: Tweet) in
-            
-            self.delegate?.composeTweet(composer: self, didComposeTweet: tweet)
-            
-        }) { (error: Error) in
-            
+        if let replyingToTweet = replyingToTweet {
+            TwitterClient.sharedInstance.reply(tweet: replyingToTweet, text: tweetTextView.text, success: {
+                
+            }, failure: { (error: Error) in
+                
+            })
+        } else {
+            TwitterClient.sharedInstance.sendTweet(text: tweetTextView.text, success: { (tweet: Tweet) in
+                
+                self.delegate?.composeTweet(composer: self, didComposeTweet: tweet)
+                
+            }) { (error: Error) in
+                
+            }
         }
     }
     

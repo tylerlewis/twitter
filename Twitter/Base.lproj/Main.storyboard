@@ -284,6 +284,7 @@
                                 <state key="normal" title="Reply"/>
                                 <connections>
                                     <action selector="onReplyTap:" destination="4l8-qa-FhF" eventType="touchUpInside" id="B5k-bP-Pbn"/>
+                                    <segue destination="xzs-QN-des" kind="push" identifier="replyToTweet" id="hpr-1N-YpH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdC-gm-VGa">
@@ -348,4 +349,7 @@
             <point key="canvasLocation" x="842.39999999999998" y="36.431784107946029"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="hpr-1N-YpH"/>
+    </inferredMetricsTieBreakers>
 </document>
