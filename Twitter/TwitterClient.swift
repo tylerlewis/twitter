@@ -40,7 +40,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken: BDBOAuth1Credential?) in
             
-            
             self.getUserAccount(success: {
                 (user: User) -> () in
                 print(user)
@@ -49,16 +48,6 @@ class TwitterClient: BDBOAuth1SessionManager {
                 (error: Error?) -> () in
                 print("ERROR")
                 self.loginFailureHandler?(error!)
-            })
-            
-            self.getHomeTimeline(success: {
-                (tweets: [Tweet]) -> () in
-                for tweet in tweets {
-                    print(tweet)
-                }
-            }, failure: {
-                (error: Error?) -> () in
-                print("ERROR")
             })
             
         }, failure: { (error: Error?) in

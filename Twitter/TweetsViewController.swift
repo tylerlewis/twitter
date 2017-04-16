@@ -22,17 +22,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
         
-        isLoadingTweets = true
+        let tweetsRefreshControl = UIRefreshControl()
+        tweetsRefreshControl.addTarget(self, action: #selector(refreshTweetsControlAction(_:)), for: UIControlEvents.valueChanged)
+        tweetsTableView.insertSubview(tweetsRefreshControl, at: 0)
         
-        TwitterClient.sharedInstance.getHomeTimeline(success: { (tweets: [Tweet]) in
-            self.isLoadingTweets = false
-            
-            self.tweets = tweets
-            
-            self.tweetsTableView.reloadData()
-        }) { (Error) in
-            self.isLoadingTweets = false
-        }
+        getTweets(success: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,6 +50,30 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tweetCell.initialize(tweet: tweet)
         
         return tweetCell
+    }
+    
+    func getTweets(success: (() -> ())?) {
+        isLoadingTweets = true
+        
+        TwitterClient.sharedInstance.getHomeTimeline(success: { (tweets: [Tweet]) in
+            self.isLoadingTweets = false
+            
+            self.tweets = tweets
+            
+            self.tweetsTableView.reloadData()
+            
+            if let success = success {
+                success()
+            }
+        }) { (Error) in
+            self.isLoadingTweets = false
+        }
+    }
+    
+    func refreshTweetsControlAction(_ refreshControl: UIRefreshControl) {
+        getTweets(success: {
+            refreshControl.endRefreshing()
+        })
     }
 
     /*
