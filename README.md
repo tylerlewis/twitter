@@ -38,7 +38,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="http://i.imgur.com/ANJx9z5.gif" title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -47,6 +47,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 Describe any challenges encountered while building the app.
 
 If given more time, there are a few things I'd like to refactor. I'd like to move the profile image and icons code into their own components, to avoid duplicating code. Also, there are some places I duplicated Twitter client api call code, where these could be moved into the Tweet class
+
+To run this app locally, you must create a Keys.plist file in the Twitter group, with two keys... twitterConsumerSecret and twitterConsumerKey from your Twitter app.
 
 ## License
 
