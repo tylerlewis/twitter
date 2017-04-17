@@ -39,7 +39,7 @@ class ComposeTweetViewController: UIViewController {
         tweetTextView.text = ""
         
         if let replyingToTweet = replyingToTweet {
-            tweetTextView.text = "@\((replyingToTweet.user?.username)!) "
+            tweetTextView.text = "\((replyingToTweet.user?.username)!) "
         }
         
         tweetTextView.becomeFirstResponder()
