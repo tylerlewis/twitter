@@ -56,7 +56,9 @@ class ComposeTweetViewController: UIViewController {
     
     @IBAction func onTweetTap(_ sender: Any) {
         if let replyingToTweet = replyingToTweet {
-            TwitterClient.sharedInstance.reply(tweet: replyingToTweet, text: tweetTextView.text, success: {
+            TwitterClient.sharedInstance.reply(tweet: replyingToTweet, text: tweetTextView.text, success: { (tweet: Tweet) in
+                
+                self.delegate?.composeTweet(composer: self, didComposeTweet: tweet)
                 
             }, failure: { (error: Error) in
                 

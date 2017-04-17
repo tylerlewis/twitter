@@ -52,6 +52,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tweetCell.initialize(tweet: tweet)
         
+        tweetCell.replyIconButton.tag = indexPath.row
         tweetCell.retweetIconButton.tag = indexPath.row
         tweetCell.favoriteIconButton.tag = indexPath.row
         
@@ -124,9 +125,12 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let tweetDetailViewController = segue.destination as! TweetDetailViewController
             tweetDetailViewController.tweet = tweets[selectedTweetIndex.row]
         } else if segue.identifier == "replyToTweet" {
-            let selectedTweetIndex = tweetsTableView.indexPathForSelectedRow!
-            let composeTweetViewController = segue.destination as! ComposeTweetViewController
-            composeTweetViewController.replyingToTweet = tweets[selectedTweetIndex.row]
+            if let replyButton = sender as? UIButton {
+                let selectedTweetIndex = replyButton.tag
+                let composeTweetViewController = segue.destination as! ComposeTweetViewController
+                composeTweetViewController.delegate = self
+                composeTweetViewController.replyingToTweet = tweets[selectedTweetIndex]
+            }
         }
     }
 
