@@ -28,6 +28,10 @@ class ComposeTweetViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        userProfileImageView.layer.cornerRadius = 3.0
+
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
+        
         let currentUser = User.currentUser!
         userProfileImageView.setImageWith(currentUser.profileImageUrl!)
         nameLabel.text = currentUser.name
