@@ -112,7 +112,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
         navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        if !(User.currentUser?.justLoggedIn)! {
+            dismiss(animated: true, completion: nil)
+        }
     }
 
     // MARK: - Navigation

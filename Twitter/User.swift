@@ -16,6 +16,7 @@ class User: NSObject {
     var username: String?
     var profileImageUrl: URL?
     var tagline: String?
+    var justLoggedIn: Bool = false
     
     var originalUserDictionary: NSDictionary!
     

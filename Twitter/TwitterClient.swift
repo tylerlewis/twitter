@@ -42,6 +42,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             
             self.getUserAccount(success: {
                 (user: User) -> () in
+                user.justLoggedIn = true
                 self.loginSuccessHandler?()
             }, failure: {
                 (error: Error?) -> () in
@@ -87,6 +88,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("ERROR")
+            print(error.localizedDescription)
             failure(error)
         })
     }
@@ -103,6 +105,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             
         }) { (task: URLSessionDataTask?, error: Error) in
             print("ERROR SENDING TWEET")
+            print(error.localizedDescription)
             failure(error)
         }
     }
