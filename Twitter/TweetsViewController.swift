@@ -110,9 +110,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         getTweets { 
             
         }
-        dismiss(animated: true) { 
-            
-        }
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: - Navigation
