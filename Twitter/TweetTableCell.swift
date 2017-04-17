@@ -17,9 +17,9 @@ class TweetTableCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
-    @IBOutlet weak var replyIconLabel: UILabel!
-    @IBOutlet weak var retweetIconLabel: UILabel!
-    @IBOutlet weak var favoriteIconLabel: UILabel!
+    @IBOutlet weak var replyIconButton: UIButton!
+    @IBOutlet weak var retweetIconButton: UIButton!
+    @IBOutlet weak var favoriteIconButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,12 +28,24 @@ class TweetTableCell: UITableViewCell {
         
         nameLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
         
-        replyIconLabel.font = UIFont.fontAwesome(ofSize: 13)
-        replyIconLabel.text = String.fontAwesomeIcon(name: .reply)
-        retweetIconLabel.font = UIFont.fontAwesome(ofSize: 13)
-        retweetIconLabel.text = String.fontAwesomeIcon(name: .retweet)
-        favoriteIconLabel.font = UIFont.fontAwesome(ofSize: 13)
-        favoriteIconLabel.text = String.fontAwesomeIcon(name: .starO)
+        // Duplicated code with tweet detail view, refactor
+        let replyIconString = String.fontAwesomeIcon(name: .reply)
+        let replyIconAttributed = NSMutableAttributedString(string: replyIconString)
+        replyIconAttributed.addAttribute(NSFontAttributeName, value: UIFont.fontAwesome(ofSize: 13), range: NSRange(location: 0,length: 1))
+        replyIconButton.setAttributedTitle(replyIconAttributed, for: .normal)
+        replyIconButton.titleLabel?.textColor = UIColor.lightGray
+        
+        let retweetIconString = String.fontAwesomeIcon(name: .retweet)
+        let retweetIconAttributed = NSMutableAttributedString(string: retweetIconString)
+        retweetIconAttributed.addAttribute(NSFontAttributeName, value: UIFont.fontAwesome(ofSize: 13), range: NSRange(location: 0,length: 1))
+        retweetIconButton.setAttributedTitle(retweetIconAttributed, for: .normal)
+        retweetIconButton.titleLabel?.textColor = UIColor.lightGray
+        
+        let favoriteIconString = String.fontAwesomeIcon(name: .starO)
+        let favoriteIconAttributed = NSMutableAttributedString(string: favoriteIconString)
+        favoriteIconAttributed.addAttribute(NSFontAttributeName, value: UIFont.fontAwesome(ofSize: 13), range: NSRange(location: 0,length: 1))
+        favoriteIconButton.setAttributedTitle(favoriteIconAttributed, for: .normal)
+        favoriteIconButton.titleLabel?.textColor = UIColor.lightGray
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

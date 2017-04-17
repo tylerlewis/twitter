@@ -35,6 +35,7 @@ class TweetDetailViewController: UIViewController {
         retweetCountLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
         favoriteCountLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
         
+        // Setting button text to icons is kinda messy, refactor
         let replyIconString = String.fontAwesomeIcon(name: .reply)
         let replyIconAttributed = NSMutableAttributedString(string: replyIconString)
         replyIconAttributed.addAttribute(NSFontAttributeName, value: UIFont.fontAwesome(ofSize: 13), range: NSRange(location: 0,length: 1))

@@ -44,6 +44,10 @@ class ComposeTweetViewController: UIViewController {
         
         tweetTextView.becomeFirstResponder()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        replyingToTweet = nil
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

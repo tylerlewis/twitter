@@ -22,6 +22,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
         tweetsTableView.separatorInset = UIEdgeInsets.zero
+        tweetsTableView.rowHeight = UITableViewAutomaticDimension
+        tweetsTableView.estimatedRowHeight = 100
         
         let tweetsRefreshControl = UIRefreshControl()
         tweetsRefreshControl.addTarget(self, action: #selector(refreshTweetsControlAction(_:)), for: UIControlEvents.valueChanged)
@@ -50,7 +52,34 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tweetCell.initialize(tweet: tweet)
         
+        tweetCell.retweetIconButton.tag = indexPath.row
+        tweetCell.favoriteIconButton.tag = indexPath.row
+        
         return tweetCell
+    }
+    
+    @IBAction func onRetweetTap(_ sender: Any) {
+        if let retweetButton = sender as? UIButton {
+            let selectedTweetIndex = retweetButton.tag
+            let tweet = tweets[selectedTweetIndex]
+            TwitterClient.sharedInstance.retweet(tweet: tweet, success: {
+                
+            }) { (error: Error) in
+                
+            }
+        }
+    }
+    
+    @IBAction func onFavoriteTap(_ sender: Any) {
+        if let favoriteButton = sender as? UIButton {
+            let selectedTweetIndex = favoriteButton.tag
+            let tweet = tweets[selectedTweetIndex]
+            TwitterClient.sharedInstance.favorite(tweet: tweet, success: {
+                
+            }) { (error: Error) in
+                
+            }
+        }
     }
     
     func getTweets(success: (() -> ())?) {
@@ -95,6 +124,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let selectedTweetIndex = tweetsTableView.indexPathForSelectedRow!
             let tweetDetailViewController = segue.destination as! TweetDetailViewController
             tweetDetailViewController.tweet = tweets[selectedTweetIndex.row]
+        } else if segue.identifier == "replyToTweet" {
+            let selectedTweetIndex = tweetsTableView.indexPathForSelectedRow!
+            let composeTweetViewController = segue.destination as! ComposeTweetViewController
+            composeTweetViewController.replyingToTweet = tweets[selectedTweetIndex.row]
         }
     }
 
