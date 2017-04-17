@@ -40,7 +40,7 @@ class TweetDetailViewController: UIViewController {
         replyIconAttributed.addAttribute(NSFontAttributeName, value: UIFont.fontAwesome(ofSize: 13), range: NSRange(location: 0,length: 1))
         replyIconButton.setAttributedTitle(replyIconAttributed, for: .normal)
         replyIconButton.titleLabel?.textColor = UIColor.lightGray
-            
+        
         let retweetIconString = String.fontAwesomeIcon(name: .retweet)
         let retweetIconAttributed = NSMutableAttributedString(string: retweetIconString)
         retweetIconAttributed.addAttribute(NSFontAttributeName, value: UIFont.fontAwesome(ofSize: 13), range: NSRange(location: 0,length: 1))

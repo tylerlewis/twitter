@@ -324,9 +324,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2F-fG-Z7N">
-                                <rect key="frame" x="16" y="217" width="39" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2F-fG-Z7N">
+                                <rect key="frame" x="16" y="204" width="39" height="30"/>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
                                         <fragment content="Reply">
@@ -342,9 +341,8 @@
                                     <segue destination="xzs-QN-des" kind="push" identifier="replyToTweet" id="hpr-1N-YpH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdC-gm-VGa">
-                                <rect key="frame" x="67" y="217" width="56" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdC-gm-VGa">
+                                <rect key="frame" x="75" y="204" width="56" height="30"/>
                                 <state key="normal" title="Retweet">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -352,9 +350,8 @@
                                     <action selector="onRetweetTap:" destination="4l8-qa-FhF" eventType="touchUpInside" id="lup-SE-pvM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PP-q3-WZ1">
-                                <rect key="frame" x="141" y="217" width="55" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PP-q3-WZ1">
+                                <rect key="frame" x="151" y="204" width="55" height="30"/>
                                 <state key="normal" title="Favorite">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -371,8 +368,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="MdC-gm-VGa" firstAttribute="top" secondItem="75u-pR-Ot6" secondAttribute="bottom" constant="8" id="01o-Tk-oi9"/>
                             <constraint firstItem="aVP-Hw-Rcm" firstAttribute="top" secondItem="bZh-2F-WFU" secondAttribute="bottom" constant="8" id="0Yk-ko-qYO"/>
                             <constraint firstItem="UhX-zi-FCU" firstAttribute="leading" secondItem="gut-pZ-5Ve" secondAttribute="trailing" constant="5" id="3d5-Lj-rxX"/>
+                            <constraint firstItem="k2F-fG-Z7N" firstAttribute="leading" secondItem="Djx-9w-ue0" secondAttribute="leadingMargin" id="AE1-Pe-r6K"/>
+                            <constraint firstItem="MdC-gm-VGa" firstAttribute="leading" secondItem="k2F-fG-Z7N" secondAttribute="trailing" constant="20" id="AWP-G1-zBw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="znQ-Sz-bvT" secondAttribute="trailing" id="AYN-tT-pWp"/>
                             <constraint firstItem="Wlm-2X-eMh" firstAttribute="top" secondItem="cXy-3j-zvQ" secondAttribute="bottom" constant="8" id="C6l-3h-5XQ"/>
                             <constraint firstItem="znQ-Sz-bvT" firstAttribute="top" secondItem="cXy-3j-zvQ" secondAttribute="bottom" constant="8" id="EIZ-Vr-SQ1"/>
@@ -383,11 +383,14 @@
                             <constraint firstItem="75u-pR-Ot6" firstAttribute="leading" secondItem="fWG-Bf-tiE" secondAttribute="trailing" constant="5" id="Q5P-Pd-eFW"/>
                             <constraint firstItem="znQ-Sz-bvT" firstAttribute="leading" secondItem="Wlm-2X-eMh" secondAttribute="trailing" constant="8" id="Qwp-Oi-u1E"/>
                             <constraint firstItem="75u-pR-Ot6" firstAttribute="top" secondItem="aVP-Hw-Rcm" secondAttribute="bottom" constant="8" id="VCU-U1-Fqq"/>
+                            <constraint firstItem="1PP-q3-WZ1" firstAttribute="top" secondItem="UhX-zi-FCU" secondAttribute="bottom" constant="8" id="XQY-TN-qAK"/>
                             <constraint firstItem="aVP-Hw-Rcm" firstAttribute="leading" secondItem="Djx-9w-ue0" secondAttribute="leadingMargin" id="a3e-Ln-kWf"/>
                             <constraint firstItem="gut-pZ-5Ve" firstAttribute="leading" secondItem="75u-pR-Ot6" secondAttribute="trailing" constant="20" id="bm4-e6-mrP"/>
                             <constraint firstItem="fWG-Bf-tiE" firstAttribute="top" secondItem="aVP-Hw-Rcm" secondAttribute="bottom" constant="8" id="c47-dj-Njh"/>
                             <constraint firstItem="gut-pZ-5Ve" firstAttribute="top" secondItem="aVP-Hw-Rcm" secondAttribute="bottom" constant="8" id="dFJ-FY-Yxq"/>
                             <constraint firstItem="bZh-2F-WFU" firstAttribute="top" secondItem="Wlm-2X-eMh" secondAttribute="bottom" constant="8" id="hRZ-Io-hYg"/>
+                            <constraint firstItem="1PP-q3-WZ1" firstAttribute="leading" secondItem="MdC-gm-VGa" secondAttribute="trailing" constant="20" id="mNx-uF-gbM"/>
+                            <constraint firstItem="k2F-fG-Z7N" firstAttribute="top" secondItem="fWG-Bf-tiE" secondAttribute="bottom" constant="8" id="olU-Qi-XA7"/>
                             <constraint firstItem="fWG-Bf-tiE" firstAttribute="leading" secondItem="Djx-9w-ue0" secondAttribute="leadingMargin" id="pLz-JV-Yku"/>
                             <constraint firstItem="Xza-Pm-64F" firstAttribute="top" secondItem="cXy-3j-zvQ" secondAttribute="bottom" constant="23" id="ptZ-0X-o7i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bZh-2F-WFU" secondAttribute="trailing" id="rH6-lZ-26J"/>
