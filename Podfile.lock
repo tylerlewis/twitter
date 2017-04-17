@@ -16,15 +16,18 @@ PODS:
     - AFNetworking/NSURLSession
   - BDBOAuth1Manager (2.0.0):
     - AFNetworking/NSURLSession (~> 3.0.0)
+  - FontAwesome.swift (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking
   - BDBOAuth1Manager
+  - FontAwesome.swift
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BDBOAuth1Manager: 92d17d06f8a648602962304cd2f35ae7394fa001
+  FontAwesome.swift: 2d32a3d62195343c2004b7c9043294ed2948553a
 
-PODFILE CHECKSUM: 7a9f9c6beaf7f12664d7cffaa6d499fd9148f27a
+PODFILE CHECKSUM: 9f8fdd9ed0670557561e50b17e0639f6874958ff
 
 COCOAPODS: 1.2.0

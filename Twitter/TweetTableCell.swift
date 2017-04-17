@@ -8,6 +8,7 @@
 
 import UIKit
 import AFNetworking
+import FontAwesome_swift
 
 class TweetTableCell: UITableViewCell {
     
@@ -16,10 +17,23 @@ class TweetTableCell: UITableViewCell {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var tweetTextLabel: UILabel!
+    @IBOutlet weak var replyIconLabel: UILabel!
+    @IBOutlet weak var retweetIconLabel: UILabel!
+    @IBOutlet weak var favoriteIconLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        profileImageView.layer.cornerRadius = 3.0
+        
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
+        
+        replyIconLabel.font = UIFont.fontAwesome(ofSize: 13)
+        replyIconLabel.text = String.fontAwesomeIcon(name: .reply)
+        retweetIconLabel.font = UIFont.fontAwesome(ofSize: 13)
+        retweetIconLabel.text = String.fontAwesomeIcon(name: .retweet)
+        favoriteIconLabel.font = UIFont.fontAwesome(ofSize: 13)
+        favoriteIconLabel.text = String.fontAwesomeIcon(name: .starO)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

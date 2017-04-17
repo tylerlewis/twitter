@@ -21,6 +21,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
+        tweetsTableView.separatorInset = UIEdgeInsets.zero
         
         let tweetsRefreshControl = UIRefreshControl()
         tweetsRefreshControl.addTarget(self, action: #selector(refreshTweetsControlAction(_:)), for: UIControlEvents.valueChanged)

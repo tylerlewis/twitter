@@ -21,7 +21,10 @@ class User: NSObject {
     
     init(user: NSDictionary) {
         name = user["name"] as? String
-        username = user["screen_name"] as? String
+        
+        let rawUsername = user["screen_name"] as? String
+        username = "@\(rawUsername!)"
+        
         let profileImageUrlString = user["profile_image_url_https"] as? String
         if let profileImageUrlString = profileImageUrlString {
             profileImageUrl = URL(string: profileImageUrlString)
