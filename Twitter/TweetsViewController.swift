@@ -21,6 +21,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Do any additional setup after loading the view.
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
+
         tweetsTableView.separatorInset = UIEdgeInsets.zero
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         tweetsTableView.estimatedRowHeight = 100

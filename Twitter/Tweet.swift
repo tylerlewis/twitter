@@ -37,7 +37,6 @@ class Tweet: NSObject {
         var tweets = [Tweet]()
         
         for responseTweet in responseTweets {
-            print(responseTweet)
             let tweet = Tweet(tweet: responseTweet)
             tweets.append(tweet)
         }

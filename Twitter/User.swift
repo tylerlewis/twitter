@@ -17,11 +17,15 @@ class User: NSObject {
     var username: String?
     var profileImageUrl: URL?
     var tagline: String?
+    var tweetCount: Int?
+    var followingCount: Int?
+    var followerCount: Int?
     var justLoggedIn: Bool = false
     
     var originalUserDictionary: NSDictionary!
     
     init(user: NSDictionary) {
+        print(user)
         name = user["name"] as? String
         
         let rawUsername = user["screen_name"] as? String
@@ -32,6 +36,9 @@ class User: NSObject {
             profileImageUrl = URL(string: profileImageUrlString)
         }
         tagline = user["description"] as? String
+        tweetCount = user["statuses_count"] as? Int
+        followingCount = user["friends_count"] as? Int
+        followerCount = user["followers_count"] as? Int
         
         originalUserDictionary = user
     }

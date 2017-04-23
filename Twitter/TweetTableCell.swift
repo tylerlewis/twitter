@@ -55,7 +55,7 @@ class TweetTableCell: UITableViewCell {
     }
     
     func initialize(tweet: Tweet) {
-        if let user = tweet.user, let profileImageUrl = user.profileImageUrl {
+        if let profileImageUrl = tweet.user?.profileImageUrl {
             profileImageView.setImageWith(profileImageUrl)
         }
         nameLabel.text = tweet.user?.name

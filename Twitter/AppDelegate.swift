@@ -28,6 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             mainViewController.menuViewController = menuViewController
         } else {
             print("There is no user")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+            self.window?.rootViewController = loginViewController
         }
         
         NotificationCenter.default.addObserver(forName: User.userDidLogInNotification, object: nil, queue: OperationQueue.main) { (Notification) in
