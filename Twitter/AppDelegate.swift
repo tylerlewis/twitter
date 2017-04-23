@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -22,10 +21,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("There is a user")
             // Take user on in to Tweets page
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tweetsViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
-            window?.rootViewController = tweetsViewController
+            let mainViewController = window!.rootViewController as! MainViewController            
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            
+            menuViewController.mainViewController = mainViewController
+            mainViewController.menuViewController = menuViewController
         } else {
             print("There is no user")
+        }
+        
+        NotificationCenter.default.addObserver(forName: User.userDidLogInNotification, object: nil, queue: OperationQueue.main) { (Notification) in
+            
+            // Take user to tweets page, initialize container view
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let mainViewController = storyboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+            
+            menuViewController.mainViewController = mainViewController
+            mainViewController.menuViewController = menuViewController
+            
+            self.window?.rootViewController = mainViewController
         }
         
         NotificationCenter.default.addObserver(forName: User.userDidLogoutNotification, object: nil, queue: OperationQueue.main) { (Notification) in

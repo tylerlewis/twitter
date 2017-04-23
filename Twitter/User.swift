@@ -10,6 +10,7 @@ import UIKit
 
 class User: NSObject {
     
+    static let userDidLogInNotification = NSNotification.Name(rawValue: "UserDidLogIn")
     static let userDidLogoutNotification = NSNotification.Name(rawValue: "UserDidLogout")
     
     var name: String?

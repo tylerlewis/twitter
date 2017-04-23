@@ -26,6 +26,7 @@ class LoginViewController: UIViewController {
         TwitterClient.sharedInstance.login(success: { 
             print("I've logged in!")
             
+            NotificationCenter.default.post(name: User.userDidLogInNotification, object: nil)
             self.performSegue(withIdentifier: "loginSegue", sender: nil)
         }) { (Error) in
             print("Didn't log in...")
