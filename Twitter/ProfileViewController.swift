@@ -19,12 +19,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var followerCountLabel: UILabel!
     @IBOutlet weak var tweetsTableView: UITableView!
     
+    var isCurrentUser: Bool = true
     var user: User!
     var tweets: [Tweet]! = []
     var isLoadingTweets: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Set up the let bar button item, depending on if logged-in user or viewing other user
+        if Profile.isCurrentUser! {
+           navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign Out", style: .plain, target: self, action: #selector(signOut))
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backToHomeTimeline))
+        }
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
@@ -33,10 +42,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tweetsTableView.estimatedRowHeight = 100
 
         profileImageView.layer.cornerRadius = 3.0
-
-        user = User.currentUser!
         
         backgroundImageView.image = UIImage(named: "twitter_cloud")
+        
+        // Set up user-specific properties
+        user = Profile.user
+
         profileImageView.setImageWith(user.profileImageUrl!)
         
         nameLabel.text = user.name
@@ -48,21 +59,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         tweetCountLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
         followingCountLabel.text = user.followingCount?.description
         followingCountLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
-        followerCountLabel.text = user.followingCount?.description
+        followerCountLabel.text = user.followerCount?.description
         followerCountLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
         
         // Fetch tweets
         // TODO - Cache tweets from initial call, for profile at least
         isLoadingTweets = true
-        TwitterClient.sharedInstance.getHomeTimeline(success: { (tweets: [Tweet]) in
-            self.isLoadingTweets = false
-            
-            self.tweets = tweets
-            
-            self.tweetsTableView.reloadData()
-        }) { (Error) in
-            self.isLoadingTweets = false
+        if Profile.isCurrentUser! {
+            TwitterClient.sharedInstance.getHomeTimeline(success: { (tweets: [Tweet]) in
+                self.loadTweets(tweets: tweets)
+            }) { (Error) in
+                self.isLoadingTweets = false
+            }
+        } else {
+            TwitterClient.sharedInstance.getHomeTimelineForUsername(username: user.username!, success: { (tweets: [Tweet]) in
+                self.loadTweets(tweets: tweets)
+            }) { (Error) in
+                self.isLoadingTweets = false
+
+            }
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -81,6 +98,19 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return cell
     }
     
+    func loadTweets(tweets: [Tweet]) {
+        self.isLoadingTweets = false
+        self.tweets = tweets
+        self.tweetsTableView.reloadData()
+    }
+    
+    func signOut() {
+        TwitterClient.sharedInstance.logout()
+    }
+    
+    func backToHomeTimeline() {
+        NotificationCenter.default.post(name: Navigation.backToHomeTimelineNotification, object: nil)
+    }
 
     /*
     // MARK: - Navigation

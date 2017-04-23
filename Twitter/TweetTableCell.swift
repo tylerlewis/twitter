@@ -11,7 +11,7 @@ import AFNetworking
 import FontAwesome_swift
 
 class TweetTableCell: UITableViewCell {
-    
+        
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -21,10 +21,15 @@ class TweetTableCell: UITableViewCell {
     @IBOutlet weak var retweetIconButton: UIButton!
     @IBOutlet weak var favoriteIconButton: UIButton!
     
+    var originalTweet: Tweet!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         profileImageView.layer.cornerRadius = 3.0
+        let profileImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onProfileImageTap(tapGestureRecognizer:)))
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(profileImageViewTapGestureRecognizer)
         
         nameLabel.font = UIFont.boldSystemFont(ofSize: 13.0)
         
@@ -68,6 +73,12 @@ class TweetTableCell: UITableViewCell {
         }
         
         tweetTextLabel.text = tweet.text
+        
+        originalTweet = tweet
+    }
+    
+    func onProfileImageTap(tapGestureRecognizer: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: Navigation.profileImageTappedNotification, object: nil, userInfo: originalTweet.user?.originalUserDictionary as! [AnyHashable : Any]?)
     }
 
 }

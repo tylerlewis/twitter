@@ -59,6 +59,11 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         menuTableView.deselectRow(at: indexPath, animated: true)
         
+        if indexPath.row == 0 { // Profile
+            Profile.isCurrentUser = true
+            Profile.user = User.currentUser
+        }
+        
         mainViewController.contentViewController = viewControllers[indexPath.row]
     }
     

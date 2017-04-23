@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
             }
             
             contentViewController.willMove(toParentViewController: self)
-                contentView.addSubview(contentViewController.view)
+            contentView.addSubview(contentViewController.view)
             contentViewController.didMove(toParentViewController: self)
             
             UIView.animate(withDuration: 0.3) { 
@@ -47,7 +47,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        initNotificationObservers()
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,6 +74,32 @@ class MainViewController: UIViewController {
         }
     }
     
+    func initNotificationObservers() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        NotificationCenter.default.addObserver(forName: Navigation.profileImageTappedNotification, object: nil, queue: OperationQueue.main) { (Notification) in
+            
+            let user = User(user: Notification.userInfo as! NSDictionary)
+            Profile.isCurrentUser = false
+            Profile.user = user
+            
+            // Take user to this profile page
+            let profileNavigationController = storyboard.instantiateViewController(withIdentifier: "ProfileNavigationController")
+            self.contentViewController = profileNavigationController
+        }
+        
+        NotificationCenter.default.addObserver(forName: Navigation.backToHomeTimelineNotification, object: nil, queue: OperationQueue.main) { (Notification) in
+
+            // Take user back to the home timeline
+            let tweetsNavigationController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+            self.contentViewController = tweetsNavigationController
+        }
+    }
+    
+    func extractUser(notification: Notification) -> User {
+        let user = User(user: notification.userInfo as! NSDictionary)
+        return user
+    }
 
     /*
     // MARK: - Navigation

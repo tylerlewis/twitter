@@ -179,8 +179,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mAw-j4-D7v">
+                                                <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mAw-j4-D7v">
                                                     <rect key="frame" x="0.0" y="8" width="50" height="50"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="8EF-69-6JM"/>
                                                         <constraint firstAttribute="height" constant="50" id="SlG-Da-mYG"/>
@@ -281,6 +282,7 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="MZI-oU-Okc" secondAttribute="trailing" constant="8" id="DdX-0a-ZWn"/>
                             <constraint firstItem="MZI-oU-Okc" firstAttribute="leading" secondItem="85X-2g-uj6" secondAttribute="leading" constant="8" id="Szp-wj-cUv"/>
@@ -578,15 +580,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="qXW-e2-Fe1">
                         <barButtonItem key="backBarButtonItem" title="Sign Out" id="RWq-WF-jiS"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="p9S-XF-bY4">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IwU-tN-9f6">
-                                <rect key="frame" x="16" y="7" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="753-b3-WdL">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SHO-oS-hhw">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
