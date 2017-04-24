@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var isCurrentUser: Bool = true
     var user: User!
-    var tweets: [Tweet]! = []
+    var tweets: [Tweet]! = [Tweet]()
     var isLoadingTweets: Bool = false
     
     override func viewDidLoad() {
@@ -33,20 +33,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backToHomeTimeline))
         }
+        let leftBarButtonTextAttributes = [
+            NSFontAttributeName: UIFont.systemFont(ofSize: 15.0)
+        ]
         navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes(leftBarButtonTextAttributes, for: .normal)
         
         tweetsTableView.delegate = self
         tweetsTableView.dataSource = self
         tweetsTableView.separatorInset = UIEdgeInsets.zero
         tweetsTableView.rowHeight = UITableViewAutomaticDimension
         tweetsTableView.estimatedRowHeight = 100
-
+        
         profileImageView.layer.cornerRadius = 3.0
         
         backgroundImageView.image = UIImage(named: "twitter_cloud")
         
         // Set up user-specific properties
         user = Profile.user
+        
+        self.title = user.name
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 
         profileImageView.setImageWith(user.profileImageUrl!)
         
@@ -65,21 +72,12 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         // Fetch tweets
         // TODO - Cache tweets from initial call, for profile at least
         isLoadingTweets = true
-        if Profile.isCurrentUser! {
-            TwitterClient.sharedInstance.getHomeTimeline(success: { (tweets: [Tweet]) in
-                self.loadTweets(tweets: tweets)
-            }) { (Error) in
-                self.isLoadingTweets = false
-            }
-        } else {
-            TwitterClient.sharedInstance.getHomeTimelineForUsername(username: user.username!, success: { (tweets: [Tweet]) in
-                self.loadTweets(tweets: tweets)
-            }) { (Error) in
-                self.isLoadingTweets = false
+        TwitterClient.sharedInstance.getUserTimeline(username: user.username!, success: { (tweets:[Tweet]) in
+            self.loadTweets(tweets: tweets)
+        }) { (Error) in
+            self.isLoadingTweets = false
 
-            }
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
