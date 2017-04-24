@@ -19,6 +19,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var followerCountLabel: UILabel!
     @IBOutlet weak var tweetsTableView: UITableView!
     
+    var originalBackgroundImageViewFrame: CGRect!
+    
+    @IBOutlet weak var countViewTopLayoutConstraint: NSLayoutConstraint!
+    var originalCountViewTopLayoutConstraint: CGFloat!
+
+    @IBOutlet weak var tweetsTableViewTopLayoutConstraint: NSLayoutConstraint!
+    var originalTweetsTableViewTopLayoutConstraint: CGFloat!
+    
+    @IBOutlet weak var profileImageTopLayoutConstraint: NSLayoutConstraint!
+    var originalProfileImageTopLayoutConstraint: CGFloat!
+    
+    @IBOutlet weak var backgroundImageHeightConstraint: NSLayoutConstraint!
+    var originalBackgroundImageHeightConstraint: CGFloat! = 85
+    
     var isCurrentUser: Bool = true
     var user: User!
     var tweets: [Tweet]! = [Tweet]()
@@ -109,6 +123,38 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func backToHomeTimeline() {
         NotificationCenter.default.post(name: Navigation.backToHomeTimelineNotification, object: nil)
     }
+    
+    @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let velocity = sender.velocity(in: view)
+        
+        if sender.state == .began {
+            originalProfileImageTopLayoutConstraint = profileImageTopLayoutConstraint.constant
+            originalCountViewTopLayoutConstraint = countViewTopLayoutConstraint.constant
+            
+            originalTweetsTableViewTopLayoutConstraint = tweetsTableViewTopLayoutConstraint.constant
+            
+        } else if sender.state == .changed {
+            
+            if velocity.y > 0 {
+                backgroundImageHeightConstraint.constant = originalBackgroundImageHeightConstraint + translation.y
+                profileImageTopLayoutConstraint.constant = originalProfileImageTopLayoutConstraint + translation.y
+                
+                countViewTopLayoutConstraint.constant = originalCountViewTopLayoutConstraint + translation.y
+                
+                tweetsTableViewTopLayoutConstraint.constant = originalTweetsTableViewTopLayoutConstraint + translation.y
+            }
+            
+        } else if sender.state == .ended {
+            backgroundImageHeightConstraint.constant = originalBackgroundImageHeightConstraint
+            profileImageTopLayoutConstraint.constant = originalProfileImageTopLayoutConstraint
+            
+            countViewTopLayoutConstraint.constant = originalCountViewTopLayoutConstraint
+            
+            tweetsTableViewTopLayoutConstraint.constant = originalTweetsTableViewTopLayoutConstraint
+        }
+    }
+    
 
     /*
     // MARK: - Navigation
